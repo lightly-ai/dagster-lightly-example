@@ -1,1 +1,1 @@
-# dagster-lightly-example
+GitHub official code of the tutorial [Data Pre-processing Pipeline on AWS with Dagster](https://lightly-docs.readme.io/docs/data-pre-processing-pipeline-on-aws-with-dagster-1)
