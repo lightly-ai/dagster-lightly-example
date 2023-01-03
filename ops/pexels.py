@@ -2,6 +2,7 @@ import os
 import string
 import random
 import requests
+import json
 
 from typing import List
 
@@ -9,8 +10,10 @@ from pypexels import PyPexels
 
 from dagster import op
 
+with open("config/config.json", "r") as jsonfile:
+    configs_json = json.load(jsonfile)
 
-PEXELS_API_KEY = 'YOUR_PEXELS_API_KEY'
+PEXELS_API_KEY = configs_json["PEXELS_API_KEY"]
 
 
 class PexelsClient:
@@ -56,7 +59,7 @@ def download_random_video_from_pexels() -> str:
 
     """
 
-    client = PexelsClient(pexels_api_key="563492ad6f91700001000001f91f6288a95e4ef0baf9ea78d37d4032")
+    client = PexelsClient()
     path = client.download_video('./')
 
     return path

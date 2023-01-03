@@ -1,15 +1,20 @@
+import json
 from dagster import op
 from lightly.api import ApiWorkflowClient
 from lightly.openapi_generated.swagger_client.models.dataset_type import DatasetType
 from lightly.openapi_generated.swagger_client.models.datasource_purpose import DatasourcePurpose
 
-LIGHTLYTOKEN = "MY_LIGHTLY_TOKEN"
-DATASETNAME = "dataset-name"
-S3REGION = "eu-central-1"
-S3ROLEARN = "S3-ACCESS-KEY"
-S3SEXTERNALID = "S3-SECRET-ACCESS-KEY"
-S3INPUTBUCKET= "s3://bucket/input/"
-S3LIGHTLYBUCKET= "s3://bucket/lightly/"
+
+with open("config/config.json", "r") as jsonfile:
+    configs_json = json.load(jsonfile)
+    
+LIGHTLYTOKEN = configs_json["LIGHTLYTOKEN"]
+DATASETNAME = configs_json["DATASETNAME"]
+S3REGION = configs_json["S3REGION"]
+S3ROLEARN = configs_json["S3ROLEARN"]
+S3SEXTERNALID = configs_json["S3SEXTERNALID"]
+S3INPUTBUCKET = configs_json["S3INPUTBUCKET"]
+S3LIGHTLYBUCKET = configs_json["S3LIGHTLYBUCKET"]
 
 class LightlyRun:
     """Pexels client to download a random popular video. """

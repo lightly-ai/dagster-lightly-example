@@ -1,15 +1,18 @@
 import os
 import string
 import random
+import json
 
 import boto3
 from botocore.exceptions import ClientError
 
 from dagster import op
 
+with open("config/config.json", "r") as jsonfile:
+    configs_json = json.load(jsonfile)
 
-S3INPUTBUCKET: str = "inputbucket"
-REGION_NAME: str = 'eu-central-1'
+S3INPUTBUCKET = configs_json["S3INPUTBUCKET"]
+REGION_NAME = configs_json["S3REGION"]
 
 
 class S3Client:
@@ -43,16 +46,14 @@ class S3Client:
 
         """
 
-        # upload file to lightly-aws-bucket/input_dir/RANDOM_STRING/basename.mp4
         object_name = os.path.join(
-            'input_dir',
             self.random_subfolder(),
             os.path.basename(filename)
         )
 
         # Upload the file
         try:
-            self.s3.upload_file(filename, self.s3_input_bucket, ("dagster_example/" + object_name))
+            self.s3.upload_file(filename, self.s3_input_bucket, (object_name))
         except ClientError as e:
             print(e)
             return None

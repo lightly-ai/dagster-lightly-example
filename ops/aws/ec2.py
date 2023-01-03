@@ -1,16 +1,17 @@
 import os
 import time
+import json
 
 import boto3
 from botocore.exceptions import ClientError
 
 from dagster import op
 
+with open("config/config.json", "r") as jsonfile:
+    configs_json = json.load(jsonfile)
 
-REGION_NAME: str = 'eu-central-1' 
-INSTANCE_ID: str = 'YOUR-INSTANCE-ID'
-
-
+REGION_NAME = configs_json['S3REGION']
+INSTANCE_ID = configs_json['INSTANCE_ID']
 
 class EC2Client:
     """EC2 client to start, run, and stop instances.
