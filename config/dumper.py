@@ -10,7 +10,7 @@ config = {
     "S3INPUTBUCKET" : "s3://bucket/input/",
     "S3LIGHTLYBUCKET" : "s3://bucket/lightly/",
     "INSTANCE_ID" : "YOUR-INSTANCE-ID",
-
+    "SCRIPTPATH" : "/home/ubuntu/run.sh",
 }
 myJSON = json.dumps(config, indent=4)
 

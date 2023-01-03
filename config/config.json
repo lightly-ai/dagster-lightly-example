@@ -7,5 +7,6 @@
     "S3SEXTERNALID": "S3-SECRET-ACCESS-KEY",
     "S3INPUTBUCKET": "s3://bucket/input/",
     "S3LIGHTLYBUCKET": "s3://bucket/lightly/",
-    "INSTANCE_ID": "YOUR-INSTANCE-ID"
+    "INSTANCE_ID": "YOUR-INSTANCE-ID",
+    "SCRIPTPATH" : "/home/ubuntu/run.sh"
 }

@@ -12,6 +12,7 @@ with open("config/config.json", "r") as jsonfile:
 
 REGION_NAME = configs_json['S3REGION']
 INSTANCE_ID = configs_json['INSTANCE_ID']
+SCRIPTPATH = configs_json['SCRIPTPATH']
 
 class EC2Client:
     """EC2 client to start, run, and stop instances.
@@ -122,7 +123,7 @@ def run_lightly_onprem(object_name: str) -> str:
 
     ec2_client = EC2Client()
     ec2_client.start_instance()
-    ec2_client.run_command('bash /home/ubuntu/run.sh')
+    ec2_client.run_command('bash ' + SCRIPTPATH)
     
 @op
 def shutdown_instance(message: str) -> None:
