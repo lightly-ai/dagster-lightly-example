@@ -11,8 +11,8 @@ from dagster import op
 with open("config/config.json", "r") as jsonfile:
     configs_json = json.load(jsonfile)
 
-S3INPUTBUCKET = configs_json["S3INPUTBUCKET"]
-REGION_NAME = configs_json["S3REGION"]
+S3_INPUT_BUCKET = configs_json["S3_INPUT_BUCKET"]
+S3_REGION = configs_json["S3_REGION"]
 
 
 class S3Client:
@@ -22,8 +22,8 @@ class S3Client:
 
     def __init__(
         self,
-        s3_input_bucket = S3INPUTBUCKET,
-        region_name = REGION_NAME
+        s3_input_bucket = S3_INPUT_BUCKET,
+        region_name = S3_REGION
     ):
         self.s3_input_bucket = s3_input_bucket
         self.region_name = region_name

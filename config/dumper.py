@@ -2,15 +2,16 @@ import json
 
 config = {
     "PEXELS_API_KEY" : 'YOUR_PEXELS_API_KEY',
-    "LIGHTLYTOKEN" : "MY_LIGHTLY_TOKEN",
-    "DATASETNAME" : "dataset-name",
-    "S3REGION" : "eu-central-1",
-    "S3ROLEARN" : "S3-ACCESS-KEY",
-    "S3SEXTERNALID" : "S3-SECRET-ACCESS-KEY",
-    "S3INPUTBUCKET" : "s3://bucket/input/",
-    "S3LIGHTLYBUCKET" : "s3://bucket/lightly/",
-    "INSTANCE_ID" : "YOUR-INSTANCE-ID",
-    "SCRIPTPATH" : "/home/ubuntu/run.sh",
+    "LIGHTLY_TOKEN" : "MY_LIGHTLY_TOKEN",
+    "DATASET_NAME" : "dataset-name",
+    "S3_REGION" : "eu-central-1",
+    "S3_ROLE_ARN" : "S3-ACCESS-KEY",
+    "S3_EXTERNAL_ID" : "S3-SECRET-ACCESS-KEY",
+    "S3_INPUT_BUCKET" : "s3://bucket/input/",
+    "S3_LIGHTLY_BUCKET" : "s3://bucket/lightly/",
+    "EC2_INSTANCE_ID" : "YOUR-INSTANCE-ID",
+    "EC2_REGION" : "eu-central-1",
+    "SCRIPT_PATH" : "/home/ubuntu/run.sh",
 }
 myJSON = json.dumps(config, indent=4)
 

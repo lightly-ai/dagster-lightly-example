@@ -10,9 +10,9 @@ from dagster import op
 with open("config/config.json", "r") as jsonfile:
     configs_json = json.load(jsonfile)
 
-REGION_NAME = configs_json['S3REGION']
-INSTANCE_ID = configs_json['INSTANCE_ID']
-SCRIPTPATH = configs_json['SCRIPTPATH']
+EC2_REGION = configs_json['EC2_REGION']
+EC2_INSTANCE_ID = configs_json['EC2_INSTANCE_ID']
+SCRIPT_PATH = configs_json['SCRIPT_PATH']
 
 class EC2Client:
     """EC2 client to start, run, and stop instances.
@@ -20,8 +20,8 @@ class EC2Client:
     """
 
     def __init__(self,
-        region_name = REGION_NAME,
-        instance_id = INSTANCE_ID,
+        region_name = EC2_REGION,
+        instance_id = EC2_INSTANCE_ID,
   
         ):
         self.region_name = region_name
@@ -123,7 +123,7 @@ def run_lightly_onprem(object_name: str) -> str:
 
     ec2_client = EC2Client()
     ec2_client.start_instance()
-    ec2_client.run_command('bash ' + SCRIPTPATH)
+    ec2_client.run_command('bash ' + SCRIPT_PATH)
     
 @op
 def shutdown_instance(message: str) -> None:

@@ -8,26 +8,26 @@ from lightly.openapi_generated.swagger_client.models.datasource_purpose import D
 with open("config/config.json", "r") as jsonfile:
     configs_json = json.load(jsonfile)
     
-LIGHTLYTOKEN = configs_json["LIGHTLYTOKEN"]
-DATASETNAME = configs_json["DATASETNAME"]
-S3REGION = configs_json["S3REGION"]
-S3ROLEARN = configs_json["S3ROLEARN"]
-S3SEXTERNALID = configs_json["S3SEXTERNALID"]
-S3INPUTBUCKET = configs_json["S3INPUTBUCKET"]
-S3LIGHTLYBUCKET = configs_json["S3LIGHTLYBUCKET"]
+LIGHTLY_TOKEN = configs_json["LIGHTLY_TOKEN"]
+DATASET_NAME = configs_json["DATASET_NAME"]
+S3_REGION = configs_json["S3_REGION"]
+S3_ROLE_ARN = configs_json["S3_ROLE_ARN"]
+S3_EXTERNAL_ID = configs_json["S3_EXTERNAL_ID"]
+S3_INPUT_BUCKET = configs_json["S3_INPUT_BUCKET"]
+S3_LIGHTLY_BUCKET = configs_json["S3_LIGHTLY_BUCKET"]
 
 class LightlyRun:
     """Pexels client to download a random popular video. """
 
     def __init__(
         self,
-        lightly_token = LIGHTLYTOKEN,
-        dataset_name = DATASETNAME,
-        s3_region = S3REGION,
-        s3_role_arn = S3ROLEARN,
-        s3_external_id = S3SEXTERNALID,
-        s3_input_bucket = S3INPUTBUCKET,
-        s3_lightly_bucket = S3LIGHTLYBUCKET
+        lightly_token = LIGHTLY_TOKEN,
+        dataset_name = DATASET_NAME,
+        s3_region = S3_REGION,
+        s3_role_arn = S3_ROLE_ARN,
+        s3_external_id = S3_EXTERNAL_ID,
+        s3_input_bucket = S3_INPUT_BUCKET,
+        s3_lightly_bucket = S3_LIGHTLY_BUCKET
 
     ):
         self.lightly_token = lightly_token
@@ -39,14 +39,18 @@ class LightlyRun:
         self.s3_lightly_bucket = s3_lightly_bucket
         self.client = ApiWorkflowClient(token=lightly_token)
 
-    def createDataset(self) -> None:
-        self.client.create_dataset(
-            self.dataset_name,
-            DatasetType.VIDEOS  
-        )
+    def create_dataset(self) -> None:
+        try:
+            self.client.create_dataset(
+                self.dataset_name,
+                DatasetType.VIDEOS,
+            )
+        except ValueError:
+            self.client.set_dataset_id_by_name(self.dataset_name)
+        
         return
     
-    def setS3Config(self) -> None:
+    def set_s3_config(self) -> None:
 
         # Input bucket
         self.client.set_s3_delegated_access_config(
@@ -68,7 +72,7 @@ class LightlyRun:
 
         return
 
-    def scheduleRun(self) -> str:
+    def schedule_run(self) -> str:
         scheduleId = self.client.schedule_compute_worker_run(
             selection_config={
                 "proportion_samples": 0.1,
@@ -87,7 +91,7 @@ class LightlyRun:
 
         return scheduleId
     
-    def monitorRun(self, scheduleId: str) -> None:
+    def monitor_run(self, scheduleId: str) -> None:
         for run_info in self.client.compute_worker_run_info_generator(scheduled_run_id=scheduleId):
             print(f"Compute worker run is now in state='{run_info.state}' with message='{run_info.message}'")
 
@@ -99,9 +103,9 @@ def schedule_lightly_run() -> str:
     """
 
     lightlyInstance = LightlyRun()
-    lightlyInstance.createDataset()
-    lightlyInstance.setS3Config()
-    scheduleId = lightlyInstance.scheduleRun()
-    lightlyInstance.monitorRun(scheduleId)
+    lightlyInstance.create_dataset()
+    lightlyInstance.set_s3_config()
+    scheduleId = lightlyInstance.schedule_run()
+    lightlyInstance.monitor_run(scheduleId)
     
     return "Done"
