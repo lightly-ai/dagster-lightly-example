@@ -63,7 +63,7 @@ Before you start, install the requirements that can be found in the `requirement
 pip install -r requirements.txt
 ```
 
-If you haven't done it yet, install AWS CLI in your local machine. You can find the tutorial on installing the AWS CLI in your system [here](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html). Test if the installation went out correctly with the following:
+If you haven't done it yet, install AWS CLI on your local machine. You can find the tutorial on installing the AWS CLI on your system [here](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html). Test if the installation went out correctly with the following:
 
 ```
 which aws
