@@ -1,0 +1,5 @@
+lightly>=1.2.40
+pypexels>=1.0.0rc1
+boto3>=1.16.63
+dagster>=1.1.7
+dagit>=1.1.7

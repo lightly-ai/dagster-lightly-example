@@ -1,0 +1,20 @@
+import json
+
+config = {
+    "PEXELS_API_KEY" : 'YOUR_PEXELS_API_KEY',
+    "LIGHTLY_TOKEN" : "MY_LIGHTLY_TOKEN",
+    "DATASET_NAME" : "dataset-name",
+    "S3_REGION" : "eu-central-1",
+    "S3_ROLE_ARN" : "S3-ACCESS-KEY",
+    "S3_EXTERNAL_ID" : "S3-SECRET-ACCESS-KEY",
+    "S3_INPUT_BUCKET" : "s3://bucket/input/",
+    "S3_LIGHTLY_BUCKET" : "s3://bucket/lightly/",
+    "EC2_INSTANCE_ID" : "YOUR-INSTANCE-ID",
+    "EC2_REGION" : "eu-central-1",
+    "SCRIPT_PATH" : "/home/ubuntu/run.sh",
+}
+myJSON = json.dumps(config, indent=4)
+
+with open("config.json", "w") as jsonfile:
+    jsonfile.write(myJSON)
+    print("Write successful")
