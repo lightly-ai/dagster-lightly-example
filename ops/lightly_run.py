@@ -48,7 +48,7 @@ class LightlyRun:
             print(f"Created dataset with name: {self.dataset_name}")
         except ValueError:
             self.client.set_dataset_id_by_name(self.dataset_name)
-            print(f"Dataset with name {self.dataset_name} already existing. Adding images to datapool.")
+            print(f"Dataset with name {self.dataset_name} already exists. Adding images to datapool.")
         
         return
     
